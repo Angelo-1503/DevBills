@@ -13,7 +13,7 @@ export const getTransactionSummaryController = async (
   request: FastifyRequest<{ Querystring: GetTransactionsSummaryQuery }>,
   reply: FastifyReply,
 ): Promise<void> => {
-  const userId = "FEIUHHQIGDQ*";
+  const userId = request.userId;
   if (!userId) {
     reply.status(401).send({ error: "Usuário não autenticado" });
     return;
@@ -68,7 +68,7 @@ export const getTransactionSummaryController = async (
       totalExpenses,
       totalIncomes,
       balance: Number((totalIncomes - totalExpenses).toFixed(2)),
-      expesesByCategory: Array.from(groupedExpenses.values())
+      expensesByCategory: Array.from(groupedExpenses.values())
         .map((entry) => ({
           ...entry,
           percentage: Number.parseFloat(((entry.amount / totalExpenses) * 100).toFixed(2)),
