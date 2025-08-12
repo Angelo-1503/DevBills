@@ -22,7 +22,6 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     const unsubscribe = onAuthStateChanged(
       firebaseAuth,
       (user) => {
-        console.log(user);
         if (user) {
           setAuthState({
             user: {
