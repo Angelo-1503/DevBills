@@ -28,9 +28,9 @@ const Transactions = () => {
       const data = await getTransactions({ month, year });
       setTransactions(data);
       setFilteredTransactions(data);
-      // biome-ignore lint/correctness/noUnusedVariables: <explanation>
     } catch (err) {
       setError("Não foi possível carregar as transações, tente novamente.");
+      console.error(err);
     } finally {
       setLoading(false);
     }
@@ -41,7 +41,7 @@ const Transactions = () => {
       setDeletingId(id);
       await deleteTransaction(id);
       toast.success("Transação deletada com sucesso!");
-      setTransactions((prev) => prev.filter((t) => t.id !== id));
+      setFilteredTransactions((prev) => prev.filter((t) => t.id !== id));
     } catch (err) {
       console.error(err);
       toast.error("Falha ao deletar Transação");
